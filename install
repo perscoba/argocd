@@ -1,0 +1,33 @@
+******installation on kubernetes cluster****************
+
+https://youtu.be/MeU5_k9ssrs
+
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+***************************************************************************
+
+
+
+
+****************Access The Argo CD API Server***************
+ 1. Service Type Load Balancer
+...kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+
+
+2. Port Forwarding
+kubectl port-forward svc/argocd-server -n argocd 8080:443
+
+acces in the browser: ip:8080
+
+************************************************
+
+login: admin
+passwd: kubectl get secret argocd-initial-admin-secret -n argocd -o yaml 
+
+The decode the passwd: echo passwd | base64 --decode
+*****************************************************************
+*******************Next we need to configure it******************************
+
+ 
